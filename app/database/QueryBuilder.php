@@ -21,15 +21,68 @@ class QueryBuilder
 		return $r;
 	}
 
-	public function storeProf($table, $name, $surname, $bio='', $instrument='')
+	public function storeProf($table, $name, $surname, $instrument, $bio)
 	{
 		$db = new SQLite3('../../skloniste.db');
 
-		$query = "INSERT INTO ".$table." (name, surname) VALUES ('$name', '$surname')";
+		$query = "INSERT INTO ".$table." (name, surname, instrument, bio) VALUES ('$name', '$surname', '$instrument', '$bio')";
 
 		if ($db->exec($query))
 		{
-			$stmt = $db->prepare('SELECT name, surname FROM '.$table.' WHERE id=:id');			
+			$stmt = $db->prepare('SELECT name, surname, instrument, bio FROM '.$table.' WHERE id=:id');			
+			
+			$result = $stmt->execute();
+			
+			return $result;
+		}
+		else
+		{
+			throw new Exception("QueryBuilder", 1);			
+		}
+	}
+
+	public function showProf($id)
+	{
+		$db = new SQLite3('../../skloniste.db');
+
+		$stmt = $db->query('SELECT name, surname, bio, instrument FROM profesori WHERE id ='.$id);
+
+		while($result = $stmt->fetchArray(SQLITE3_ASSOC)):
+			$r[] = $result;
+		endwhile;
+
+		return $r;
+	}
+
+	public function updateProf($id, $name, $surname, $instrument, $bio)
+	{
+		$db = new SQLite3('../../skloniste.db');
+
+		$query = "UPDATE profesori SET name='Andrija', surname='$surname', instrument='$instrument', bio='$bio' WHERE id='$id'";
+
+		if ($db->exec($query))
+		{
+			$stmt = $db->prepare('SELECT name, surname, instrument, bio FROM profesori WHERE id=:id');			
+			
+			$result = $stmt->execute();
+			
+			return $result;
+		}
+		else
+		{
+			throw new Exception("QueryBuilder", 1);			
+		}
+	}
+
+	public function deleteProf($id)
+	{
+		$db = new SQLite3('../../skloniste.db');
+
+		$query = "DELETE FROM profesori WHERE id='$id'";
+
+		if ($db->exec($query))
+		{
+			$stmt = $db->prepare('SELECT * FROM profesori WHERE id=:id');			
 			
 			$result = $stmt->execute();
 			
@@ -51,38 +104,5 @@ class QueryBuilder
 
 		return $results;
 		
-	}
-
-	public function showProf($id)
-	{
-		$db = new SQLite3('../../skloniste.db');
-
-		$stmt = $db->query('SELECT name, surname, bio, instrument FROM profesori WHERE id ='.$id);
-
-		while($result = $stmt->fetchArray(SQLITE3_ASSOC)):
-			$r[] = $result;
-		endwhile;
-
-		return $r;
-	}
-
-	public function deleteProf($id)
-	{
-		$db = new SQLite3('../../skloniste.db');
-
-		$query = "DELETE FROM profesori WHERE id='$id'";
-
-		if ($db->exec($query))
-		{
-			$stmt = $db->prepare('SELECT * FROM profesori WHERE id=:id');			
-			
-			$result = $stmt->execute();
-			
-			return $result;
-		}
-		else
-		{
-			throw new Exception("QueryBuilder", 1);			
-		}
 	}
 }

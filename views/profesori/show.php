@@ -11,12 +11,11 @@ $user = $query->showProf($id);
 		<div class="row">
 			<ul>
 				<img width="250" height="250" src="../../images/<?= $user[0]['name']; ?>1.jpg" alt="<?= $user[0]['name']; ?>1">
-				<li>Instrument: </li>
-				<li>Biografija: </li>
-				<li>Jos Ponesto: </li>
+				<li>Instrument: <?= $user[0]['instrument']; ?></li>
+				<li>Biografija: <?= $user[0]['bio']; ?></li>
 			</ul>
 			<p>					
-				<button  href="edit.php?id=<?= $_POST['id'] = $id; ?>" class="btn btn-info">Izmeni</button>
+				<a  href="edit.php?id=<?= $_POST['id'] = $id; ?>" class="btn btn-info">Izmeni</a>
 				&nbsp;
 				<form method="POST" action="delete.php?id=<?= $_POST['id'] = $id; ?>">
 					<input type="hidden" method="DELETE">

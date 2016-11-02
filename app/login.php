@@ -1,7 +1,7 @@
 <?php
+isset($_SESSION['email']) ?: header('Location: ../views/auth/admin.login.php') ;
 require 'bootstrap.php';
-
-$email = $_POST['email'];
+ $email = $_POST['email'];
 $password = $_POST['password'];
 
 $query = $app['database'];

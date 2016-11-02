@@ -10,14 +10,7 @@
 			  <a href="profesori/create.php" class="list-group-item">Profesori</a>
 			  <a href="#" class="list-group-item">Administratori</a>
 			</div>
-		</div>
-		<div class="row">
-			<?php
-				if (count($users) > 0 ):
-					$users['name'];
-				endif;
-			 ?>
-		</div>
+		</div>		
 	</div>
 </section>
 <?php require 'admin.footer.php'; ?>

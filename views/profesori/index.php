@@ -10,9 +10,12 @@ $profesori = $query->selectAllProf('profesori');
 		<div class="row">
 			<div class="list-group">
 			<?php foreach ($profesori as $p): ?>
-				<a href="show.php?id=<?= $_POST['id'] = $p['id']; ?>" class="list-group-item"><?= $profesor = implode(' ', $p); ?></a>
+				<a href="show.php?id=<?= $_POST['id'] = $p['id']; ?>" class="list-group-item"><?= $p['name']. ' ' . $p['surname']; ?></a>
 			<?php endforeach; ?>
 			</div>
+		</div>
+		<div class="row">
+			<a href="create.php" class="btn btn-info">Napravi Novi Unos</a>
 		</div>
 	</div>
 </section>

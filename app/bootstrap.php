@@ -1,5 +1,7 @@
 <?php
 session_start();
+isset($_SESSION['email']) ?: header('Location: ../views/auth/admin.login.php');
+
 $app = [];
 
 $app['config'] = require 'config.php';

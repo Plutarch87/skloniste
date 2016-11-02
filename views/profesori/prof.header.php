@@ -1,14 +1,11 @@
-<?php 
-require '../../app/bootstrap.php';
-isset($_SESSION['email']) ?: header('Location: auth/admin.login.php'); 
-?>
+<?php require '../../app/bootstrap.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title>Stranica za Administratora</title>
@@ -19,10 +16,10 @@ isset($_SESSION['email']) ?: header('Location: auth/admin.login.php');
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Muzicko Skloniste</a>
+					<a class="navbar-brand" href="../../">Muzicko Skloniste</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="../admin/index.php">Administratori</a></li> 
+					<li><a href="../admin.index.php">Administratori</a></li> 
 					<li><a href="index.php">Profesori</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">					
