@@ -1,14 +1,14 @@
 <?php
 require '../../app/bootstrap.php';
 
-$id = $_POST['id'];
-$name = $_POST['name'];
-$surname = $_POST['surname'];
-$instrument = $_POST['instrument'];
-$bio = $_POST['bio'];
-
+foreach($_POST as $key => $value):
+	if(!empty($value)):
+		$req[$key] = $value;
+	endif;
+endforeach;
+// die(var_dump($req));
 $db = $app['database'];
 
-$db->updateProf($id, $name, $surname, $instrument, $bio);
+$db->updateProf($req);
 
 header('Location: index.php');

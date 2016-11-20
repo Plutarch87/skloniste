@@ -1,10 +1,12 @@
 <?php 
 	
-class Request
+class Request 
 {
 	public static function url()
 	{
 		return trim($_SERVER['REQUEST_URI'], '/skloniste');
 	}
+
+
 	
 }

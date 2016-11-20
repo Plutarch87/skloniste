@@ -36,7 +36,7 @@ $user = $query->showProf($id);
 			      		<input type="textarea" name="bio" class="form-control" id="bio" placeholder="<?= $user[0]['bio']; ?>">
 			    	</div>
 		    	</div>
-		    	<input type="hidden" name="id" value="<?= $user[0]['id']; ?>">
+		    	<input type="hidden" name="id" value="<?= $_GET['id']; ?>">
 			<div class="form-group"> 
 				<div class="col-sm-offset-2 col-sm-10">
 			      		<button type="submit" class="btn btn-warning">Unesi</button>

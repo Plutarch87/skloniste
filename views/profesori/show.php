@@ -10,7 +10,7 @@ $user = $query->showProf($id);
 		<hr>		
 		<div class="row">
 			<ul>
-				<img width="250" height="250" src="../../images/<?= $user[0]['name']; ?>1.jpg" alt="<?= $user[0]['name']; ?>1">
+				<img width="250" height="250" src="../<?= $user[0]['img']; ?>" alt="<?= $user[0]['name']; ?>1">
 				<li>Instrument: <?= $user[0]['instrument']; ?></li>
 				<li>Biografija: <?= $user[0]['bio']; ?></li>
 			</ul>

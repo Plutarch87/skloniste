@@ -21,15 +21,20 @@ class QueryBuilder
 		return $r;
 	}
 
-	public function storeProf($table, $name, $surname, $instrument, $bio)
+	public function storeProf($table, $name, $surname, $instrument, $bio, $img)
 	{
 		$db = new SQLite3('../../skloniste.db');
+		$name = $db->escapeString($name);
+		$surname = $db->escapeString($surname);
+		$instrument = $db->escapeString($instrument);
+		$bio = $db->escapeString($bio);
+		$img = $db->escapeString($img);
 
-		$query = "INSERT INTO ".$table." (name, surname, instrument, bio) VALUES ('$name', '$surname', '$instrument', '$bio')";
+		$query = "INSERT INTO ".$table." (name, surname, instrument, bio, img) VALUES ('$name', '$surname', '$instrument', '$bio', '$img')";
 
 		if ($db->exec($query))
 		{
-			$stmt = $db->prepare('SELECT name, surname, instrument, bio FROM '.$table.' WHERE id=:id');			
+			$stmt = $db->prepare('SELECT name, surname, instrument, bio, img FROM '.$table.' WHERE id=:id');	
 			
 			$result = $stmt->execute();
 			
@@ -54,24 +59,28 @@ class QueryBuilder
 		return $r;
 	}
 
-	public function updateProf($id, $name, $surname, $instrument, $bio)
+	public function updateProf($arr)
 	{
 		$db = new SQLite3('../../skloniste.db');
+		$id = $arr['id'];
+		foreach($arr as $k => $v):
+			$v = $db->escapeString($v);
+			$query = "UPDATE profesori SET '$k'='$v' WHERE id='$id'";
 
-		$query = "UPDATE profesori SET name='Andrija', surname='$surname', instrument='$instrument', bio='$bio' WHERE id='$id'";
+			if ($db->exec($query))
+			{
+				$stmt = $db->prepare("SELECT '$k' FROM profesori WHERE id='$id'");			
+				
+				$result = $stmt->execute();
+				
+			}
+			else
+			{
+				throw new Exception("QueryBuilder", 1);			
+			}
+		endforeach;
+				return $result;
 
-		if ($db->exec($query))
-		{
-			$stmt = $db->prepare('SELECT name, surname, instrument, bio FROM profesori WHERE id=:id');			
-			
-			$result = $stmt->execute();
-			
-			return $result;
-		}
-		else
-		{
-			throw new Exception("QueryBuilder", 1);			
-		}
 	}
 
 	public function deleteProf($id)
@@ -105,4 +114,42 @@ class QueryBuilder
 		return $results;
 		
 	}
+
+	// Common Database Methods
+	public static function find_all()
+	{
+		$db = new SQLite3('../skloniste.db');
+
+		$stmt = $db->query('SELECT * FROM images');
+
+		$results = $stmt->fetchArray();
+
+		return $results;
+  	}
+
+  	public function create($table, $photo)
+	{
+		$db = new SQLite3('../../skloniste.db');
+		$filename = $db->escapeString($photo->filename);
+		$type = $db->escapeString($photo->type);
+		$size = $db->escapeString($photo->size);
+		$caption = $db->escapeString($photo->caption = "1");
+
+		$query = "INSERT INTO ".$table." (filename, type, size, caption) VALUES ('$filename', '$type', '$size', '$caption')";
+
+		if ($db->exec($query))
+		{
+			$stmt = $db->prepare('SELECT filename, type, size, caption FROM '.$table.' WHERE id=:id');	
+			
+			$result = $stmt->execute();
+			
+			return $result;
+		}
+		else
+		{
+			throw new Exception("QueryBuilder", 1);			
+		}
+	}
+
+
 }
